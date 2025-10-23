@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ishanth's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss"></style>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- experience  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body class="text-white bg-[#121F29]">
+    <header
+        class="sticky max-w-8xl px-8 mx-auto flex justify-between items-center whitespace-nowrap bg-[#182B3A] p-8 uppercase">
+        <div>
+            <h1>Ishanth P</h1>
+        </div>
+        <div class="w-[500px] mr-[150px]">
+            <nav class="flex justify-between  gap-8 text-base uppercase">
+                <li class="nav-list">
+                    <a href="#">Projects</a>
+                    <span class="nav-arrow"></span>
+                    <ul class="nav-dropdown">
+                        <li><a href="https://www.behance.net/ishanth">Designing</a></li>
+                        <li><a href="https://github.com/ishanth46">Development</a></li>
+                        <li><a href="https://photos.app.goo.gl/VX7mu8jnwx4aRbdo8">Photography</a></li>
+                    </ul>
+                </li>
+                <a href="https://www.linkedin.com/in/ishanth-p">Experience & Education</a>
+                <a href="mailto:ishanth.p46@gmail.com">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="info-section">
+        <div class="left-part">
+            <h3 class="heading">Hello ,I'm</h3>
+            <h1><span class="d-flex">Ishanth</span> <span class="text"></span></h1>
+            <p>I’m passionate about crafting meaningful digital products that merge design, technology, and
+                innovation to deliver real impact.</p>
+            <div class="left-part-btn">
+                <a href="mailto:ishanth.p46@gmail.com" class="book-link">
+                    <span class="linktext">Hire Me</span>
+                    <span class="arrow">
+                        <span></span>
+                    </span>
+                </a>
+                <a href="https://www.yudiz.com/" class="book-link">
+                    <span class="linktext">Download Resume</span>
+                    <span class="arrow">
+                        <span></span>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="my-img">
+        </div>
+    </section>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = document.getElementById('timelinePath');
+            const pathActive = document.getElementById('timelinePathActive');
+            const items = document.querySelectorAll('.timeline-item');
+            let pathLength = path.getTotalLength();
+
+            pathActive.style.strokeDasharray = pathLength;
+            pathActive.style.strokeDashoffset = pathLength;
+
+            function updateTimeline() {
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = window.scrollY / docHeight;
+
+                // Animate the active path line
+                const drawLength = pathLength * scrollPercent;
+                pathActive.style.strokeDashoffset = pathLength - drawLength;
+
+                // Reveal items based on scroll threshold
+                items.forEach(item => {
+                    const threshold = parseFloat(item.dataset.scrollThreshold);
+
+                    if (scrollPercent >= threshold) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+
+            updateTimeline();
+            window.addEventListener('scroll', updateTimeline);
+            window.addEventListener('resize', () => {
+                // The resize event now only updates the path length for drawing,
+                // but does not reposition the items, which are now static.
+                pathLength = path.getTotalLength();
+                pathActive.style.strokeDasharray = pathLength;
+                updateTimeline();
+            });
+        });
+    </script>
+
+    <script>
+        // TypeScript
+        var typing = new Typed(".text", {
+            strings: ["", "Designer,", "Developer,", "Photographer..."],
+            typeSpeed: 100,
+            backSpeed: 40,
+            loop: true
+        });
+
+        // GSAP
+        gsap.registerPlugin(ScrollTrigger);
+        const introsplitTypes = document.querySelectorAll(".left-part h1");
+        introsplitTypes.forEach((char, i) => {
+            const i_text = new SplitType(char);
+            gsap.to(i_text.chars, {
+                y: 0,
+                stagger: 0.08, // text splitting transition
+                duration: 0.3 // full text duration
+            });
+        });
+
+    </script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Pin the experience container during scroll
+        ScrollTrigger.create({
+            trigger: ".container",
+            start: "top center",      // when the top of container hits middle of viewport
+            end: "+=1500",            // how long the pin lasts (adjust if needed)
+            pin: true,                // keeps it fixed
+            scrub: true,              // syncs animation with scroll
+            anticipatePin: 1,
+            onEnter: () => console.log("Pinned"),
+            onLeave: () => console.log("Unpinned"),
+            onEnterBack: () => console.log("Re-pinned"),
+            onLeaveBack: () => console.log("Unpinned again"),
+        });
+
+
+        // new nav js 
+        
+    </script>
+
+</body>
+
+</html>
